@@ -3,13 +3,18 @@
 struct piece 
 {
 	char pieceChar;
+	int shape;
 	int rotation;
 	int x;
 	int y;
+	int currentX;
+	int currentY;
 };
 
-char getBlockType(piece piece);
+int getBlockType(piece piece);
 
 int getInitialX(piece piece);
 
-int getInititalY(piece piece);
+int getInitialY(piece piece);
+
+int movePiece(piece piece);

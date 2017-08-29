@@ -4,21 +4,26 @@
 #include <chrono>
 #include <thread>
 #include "Pieces.h"
-#include "pieceArray.h"
+//#include "pieceArray.h"
 
 using namespace std;
 
-char getBlockType(piece piece)
-{
-	return pieces [piece.pieceChar][piece.rotation][piece.x][piece.y];
-}
-
-int getInitialX(piece piece)
-{
-	return pieceInitialPosition [piece.pieceChar][piece.rotation][0];
-}
-
-int getInititalY(piece piece)
-{
-	return pieceInitialPosition [piece.pieceChar][piece.rotation][1];
-}
+//int getBlockType(piece piece)
+//{
+//	return pieces [piece.shape][piece.rotation][piece.y][piece.x];
+//}
+//
+//int getInitialX(piece piece)
+//{
+//	return pieceInitialPosition [piece.shape][piece.rotation][0];
+//}
+//
+//int getInitialY(piece piece)
+//{
+//	return pieceInitialPosition [piece.shape][piece.rotation][1];
+//}
+//
+//int movePiece(piece piece)
+//{
+//	return getBlockType(piece);
+//}
