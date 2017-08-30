@@ -1,6 +1,6 @@
 #pragma once
 
-char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /* vertical blocks (y) */]
+char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (y) */][5 /* vertical blocks (x) */]
 {
 	// Square
 	{
@@ -33,7 +33,7 @@ char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /*
 			{ 0, 0, 0, 0, 0 }
 		}
 	},
-
+	
 	// I
 	{
 		{
@@ -58,14 +58,14 @@ char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /*
 			{ 0, 0, 0, 0, 0 }
 		},
 		{
-			{ 0, 0, 1, 0, 0 },
+			{ 0, 0, 0, 0, 0 },
 			{ 0, 0, 1, 0, 0 },
 			{ 0, 0, 2, 0, 0 },
 			{ 0, 0, 1, 0, 0 },
-			{ 0, 0, 0, 0, 0 }
+			{ 0, 0, 1, 0, 0 }
 		}
-	}
-	,
+	},
+
 	// L
 	{
 		{
@@ -97,6 +97,7 @@ char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /*
 			{ 0, 0, 0, 0, 0 }
 		}
 	},
+
 	// L mirrored
 	{
 		{
@@ -128,6 +129,7 @@ char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /*
 			{ 0, 0, 0, 0, 0 }
 		}
 	},
+
 	// N
 	{
 		{
@@ -162,6 +164,7 @@ char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /*
 			{ 0, 0, 0, 0, 0 }
 		}
 	},
+
 	// N mirrored
 	{
 		{
@@ -193,6 +196,7 @@ char pieces[7 /* shape */][4 /* rotation */][5 /* horizontal blocks (x) */][5 /*
 			{ 0, 0, 0, 0, 0 }
 		}
 	},
+
 	// T
 	{
 		{
