@@ -28,7 +28,7 @@ int previousBoard[22][12];
 
 int boardArray[22 /*y*/ ][12 /*x*/ ]
 {
-	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
+	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
 	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
 	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
 	{3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3},
@@ -224,7 +224,7 @@ void SpawnPiece(bool &Ready)
 		current.x = 0;
 		current.y = 0;
 		current.currentX = 3;
-		current.currentY = -3;
+		current.currentY = -4;
 		Ready = false;
 		
 	}
@@ -235,37 +235,15 @@ void Logic(bool &Spawn, int Movement, int rot)
 	current.currentX += Movement;
 	current.rotation += rot;
 
+	//Brick Movement downwards
 	bool canMoveDown = true;
 	bool hashtag = false;
 	for (int i = 0; i < 5; i++)
 	{
-		
 		b = current.currentY + i;
 		for (int j = 0; j < 5; j++)
 		{
-			
 			a = current.currentX + j;
-		/*	if (boardArray[b][a] == 3) 
-			{
-				
-			}*/
-			/*if (boardArray[flagy + 1][flagx] == 3)
-			{
-				hashtag = true;
-				for (int i = 0; i < height; i++)
-				{
-					for (int j = 0; j < width; j++)
-					{
-						if (boardArray[i][j] == 1 || boardArray[i][j] == 2)
-						{
-							boardArray[i][j] = 3;
-
-						}
-						previousBoard[i][j] = boardArray[i][j];
-					}
-				}
-				canMoveDown = false;
-			}*/
 			if (boardArray[b][a] != 3)
 			{
 				boardArray[b][a] = pieces[current.shape][current.rotation][i][j];
@@ -285,9 +263,7 @@ void Logic(bool &Spawn, int Movement, int rot)
 						if (boardArray[k][l] == 1 || boardArray[k][l] == 2)
 						{
 							boardArray[k][l] = 3;
-
 						}
-							//previousBoard[i][j] = boardArray[i][j];
 					}
 				}
 				canMoveDown = false;
@@ -305,20 +281,60 @@ void Logic(bool &Spawn, int Movement, int rot)
 						boardArray[k][l] = 3;
 
 					}
-					//previousBoard[i][j] = boardArray[i][j];
 				}
 			}
-			hashtag = false;
-			
 		}
 	}
 
+	//Line Clearing and score
+	bool isFull = true;
+	int placeHolder[height][width];
+	for (int i = 0; i < height - 1; i++) 
+	{
+		isFull = true;
+		for (int j = 1; j < width - 1; j++) 
+		{
+			if (boardArray[i][j] != 3) 
+			{
+				isFull = false;
+			} 
+		}
+		if (isFull)
+		{
+			for (int j = 0; j < height; j++) 
+			{
+				for (int k = 0; k < width; k++) 
+				{
+					placeHolder[j][k] = boardArray[j][k];
+					boardArray[j][k] = 0;
+					if (j > i) 
+					{
+						boardArray[j][k] = placeHolder[j][k];
+					}
+					else if (j <= i) 
+					{
+						boardArray[j][k] = placeHolder[j - 1][k];
+					}
+				}
+			}
+			score += 1;
+		}
+	}
 
-
-
+	//border preservation
 	for (int i = 0; i < width; i++)
 	{
 		boardArray[0][i] = 0;
+	}
+	for (int i = 0; i < height; i++) 
+	{
+		for (int j = 0; j < width; j++) 
+		{
+			if (j == 0 || j == width - 1) 
+			{
+				boardArray[i][j] = 3;
+			}
+		}
 	}
 	for (int i = 0; i < width; i++)
 	{
@@ -330,23 +346,7 @@ void Logic(bool &Spawn, int Movement, int rot)
 	}
 	else 
 	{
-		//for (int i = 0; i < height; i++)
-		//{
-		//	for (int j = 0; j < width; j++)
-		//	{
-		//		if (boardArray[i][j] == 1 || boardArray[i][j] == 2 )
-		//		{
-		//			boardArray[i][j] = 3;
-		//		}
-		//	//	previousBoard[i][j] = boardArray[i][j];
-		//	}
-		//}
-
-
 		Spawn = true;
-		//canMoveDown = true;
-
-		
 	}
 }
 
