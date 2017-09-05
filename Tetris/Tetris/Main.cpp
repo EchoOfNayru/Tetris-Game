@@ -23,6 +23,7 @@ int a = 0;
 int b = 0;
 int flagx = 0;
 int flagy = 0;
+int pause = 0;
 
 int previousBoard[22][12];
 
@@ -61,6 +62,7 @@ void Setup()
 	current.y = 0;
 	current.currentX = 3;
 	current.currentY = -1;
+	pause = 0;
 
 	for (int i = 0; i < 5; i++)
 	{
@@ -148,7 +150,7 @@ void Input(int &Movement, int &rot)
 		{
 			if (canMoveLeft)
 			{
-				Movement = -1;
+				Movement -= 1;
 			}
 			for (int i = 0; i < 5; i++)
 			{
@@ -170,7 +172,7 @@ void Input(int &Movement, int &rot)
 		{
 			if (canMoveRight)
 			{
-				Movement = 1;
+				Movement += 1;
 			}
 			for (int i = 0; i < 5; i++)
 			{
@@ -219,6 +221,10 @@ void SpawnPiece(bool &Ready)
 {
 	if (Ready == true)
 	{
+		if (boardArray[1][5] == 3 || boardArray[1][6] == 3) 
+		{
+			gameOver = true;
+		}
 		current.shape = rand() % 7;
 		current.rotation = rand() % 4;
 		current.x = 0;
@@ -226,9 +232,7 @@ void SpawnPiece(bool &Ready)
 		current.currentX = 3;
 		current.currentY = -4;
 		Ready = false;
-		
 	}
-	
 }
 void Logic(bool &Spawn, int Movement, int rot) 
 {
@@ -271,7 +275,7 @@ void Logic(bool &Spawn, int Movement, int rot)
 		}
 		if (hashtag == true)
 		{
-			
+
 			for (int k = 0; k < height; k++)
 			{
 				for (int l = 0; l < width; l++)
@@ -285,33 +289,32 @@ void Logic(bool &Spawn, int Movement, int rot)
 			}
 		}
 	}
-
 	//Line Clearing and score
 	bool isFull = true;
 	int placeHolder[height][width];
-	for (int i = 0; i < height - 1; i++) 
+	for (int i = 0; i < height - 1; i++)
 	{
 		isFull = true;
-		for (int j = 1; j < width - 1; j++) 
+		for (int j = 1; j < width - 1; j++)
 		{
-			if (boardArray[i][j] != 3) 
+			if (boardArray[i][j] != 3)
 			{
 				isFull = false;
-			} 
+			}
 		}
 		if (isFull)
 		{
-			for (int j = 0; j < height; j++) 
+			for (int j = 0; j < height; j++)
 			{
-				for (int k = 0; k < width; k++) 
+				for (int k = 0; k < width; k++)
 				{
 					placeHolder[j][k] = boardArray[j][k];
 					boardArray[j][k] = 0;
-					if (j > i) 
+					if (j > i)
 					{
 						boardArray[j][k] = placeHolder[j][k];
 					}
-					else if (j <= i) 
+					else if (j <= i)
 					{
 						boardArray[j][k] = placeHolder[j - 1][k];
 					}
@@ -326,11 +329,11 @@ void Logic(bool &Spawn, int Movement, int rot)
 	{
 		boardArray[0][i] = 0;
 	}
-	for (int i = 0; i < height; i++) 
+	for (int i = 0; i < height; i++)
 	{
-		for (int j = 0; j < width; j++) 
+		for (int j = 0; j < width; j++)
 		{
-			if (j == 0 || j == width - 1) 
+			if (j == 0 || j == width - 1)
 			{
 				boardArray[i][j] = 3;
 			}
@@ -344,7 +347,7 @@ void Logic(bool &Spawn, int Movement, int rot)
 	{
 		current.currentY++;
 	}
-	else 
+	else
 	{
 		Spawn = true;
 	}
@@ -360,9 +363,11 @@ int main()
 		int rot = 0;
 		this_thread::sleep_for(chrono::milliseconds(400));
 		SpawnPiece(Spawn);
-		//Draw();
+		Draw();
 		Input(Movement, rot);
 		Logic(Spawn, Movement, rot);
 		Draw();
 	}
+	cout << "You died!\n";
+	system("pause");
 }
