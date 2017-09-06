@@ -67,6 +67,7 @@ void Setup()
 	for (int i = 0; i < 5; i++)
 	{
 		b = current.currentY + i;
+		if (b < 0) { b = 0; }
 		for (int j = 0; j < 5; j++)
 		{
 			a = current.currentX + j;
@@ -156,6 +157,7 @@ void Input(int &Movement, int &rot)
 			{
 
 				b = current.currentY + i;
+				if (b < 0) { b = 0; }
 				for (int j = 0; j < 5; j++)
 				{
 
@@ -178,6 +180,7 @@ void Input(int &Movement, int &rot)
 			{
 
 				b = current.currentY + i;
+				if (b < 0) { b = 0; }
 				for (int j = 0; j < 5; j++)
 				{
 
@@ -245,6 +248,7 @@ void Logic(bool &Spawn, int Movement, int rot)
 	for (int i = 0; i < 5; i++)
 	{
 		b = current.currentY + i;
+		if (b < 0) { b = 0; }
 		for (int j = 0; j < 5; j++)
 		{
 			a = current.currentX + j;
