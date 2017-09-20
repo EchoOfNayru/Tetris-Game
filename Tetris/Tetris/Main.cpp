@@ -6,8 +6,81 @@
 #include <thread>
 #include "Pieces.h"
 #include "pieceArray.h"
+#include <string>
+#include <fstream>
 
 using namespace std;
+
+void Highscore(int score) 
+{
+	std::fstream highscore;
+	std::string buffer;
+	int num = 0;
+	int list[10];
+	int placeholder = 0;
+	
+	highscore.open("highscore.txt", std::ios_base::in | std::ios_base::out);
+	
+	if (highscore.fail()) 
+	{
+		cout << "Error: cannot find highscores" << endl;
+		system("pause");
+	}
+	else
+	{
+		int i = 0;
+		while (std::getline(highscore, buffer))
+		{
+			list[num] = std::stoi(buffer);
+			num++;
+		}
+		for (int i = 0; i < 10; i++) 
+		{
+			if (score >= list[i]) 
+			{
+				if (i != 9)
+				{
+					list[i + 1] = list[i]; 
+				}
+				list[i] = score;
+				score = -1;
+				for (int j = i + 1; j < 10; j++) 
+				{
+					if (j != 9) 
+					{
+						list[j + 1] = list[j];
+					}
+				}
+			}
+		}
+
+		highscore.clear();
+		highscore.seekp(0);
+
+		highscore << list[0] << endl;
+		highscore << list[1] << endl;
+		highscore << list[2] << endl;
+		highscore << list[3] << endl;
+		highscore << list[4] << endl;
+		highscore << list[5] << endl;
+		highscore << list[6] << endl;
+		highscore << list[7] << endl;
+		highscore << list[8] << endl;
+		highscore << list[9] << endl;
+		cout << list[0] << endl;
+		cout << list[1] << endl;
+		cout << list[2] << endl;
+		cout << list[3] << endl;
+		cout << list[4] << endl;
+		cout << list[5] << endl;
+		cout << list[6] << endl;
+		cout << list[7] << endl;
+		cout << list[8] << endl;
+		cout << list[9] << endl;
+		system("pause");
+	}
+	highscore.close();
+}
 
 void TrainingWheels(int KobeyNeedsHelp) 
 {
@@ -373,5 +446,8 @@ int main()
 		Draw();
 	}
 	cout << "You died!\n";
+	system("pause");
+	system("cls");
+	Highscore(score);
 	system("pause");
 }
